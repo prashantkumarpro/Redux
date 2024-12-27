@@ -1,5 +1,6 @@
 import { legacy_createStore as createStore } from "redux";
-// console.dir(createStore)
+import { myCreateStore } from "./myRedux";
+// console.log(createStore)
 
 const countTextElem = document.querySelector('.count_text');
 const incrementBtn = document.querySelector('.increment_bnt');
@@ -58,26 +59,57 @@ function reducer(state = initialState, action) {
     }
 }
 
+
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
 
-console.log(store)
+// const unsubscribe = store.subscribe(() => {
+//     console.log(store.getState());
+//     countTextElem.innerText = store.getState().count;
+// });
 
-store.subscribe(() => {
-    console.log(store.getState());
-    countTextElem.innerText = store.getState().count;
+// console.log(unsubscribe)
+// countTextElem.innerText = store.getState().count;
+// store.dispatch({ type: INCREMENT });
+// store.dispatch({ type: DECREMENT });
+// store.dispatch({ type: INCREASE_BY, payload: 10 });
+// store.dispatch({ type: DECREASE_BY, payload: 10 });
+
+
+// incrementBtn.addEventListener('click', function () {
+//     store.dispatch({ type: INCREMENT });
+// });
+
+// decrementBtn.addEventListener('click', function () {
+//     store.dispatch({ type: DECREMENT });
+// });
+
+
+
+
+
+
+ // Here is the code of myRedux
+
+const myStore = myCreateStore(reducer);
+
+const unsubscribe = myStore.subscirbe(() => {
+    console.log(myStore.getState());
+    countTextElem.innerText = myStore.getState().count;
 });
 
-countTextElem.innerText = store.getState().count;
-store.dispatch({ type: INCREMENT });
-store.dispatch({ type: DECREMENT });
-store.dispatch({ type: INCREASE_BY, payload: 10 });
-store.dispatch({ type: DECREASE_BY, payload: 10 });
+// unsubscribe()
+countTextElem.innerText = myStore.getState().count;
+myStore.dispatch({ type: INCREMENT });
+myStore.dispatch({ type: DECREMENT });
+myStore.dispatch({ type: INCREASE_BY, payload: 10 });
+myStore.dispatch({ type: DECREASE_BY, payload: 10 });
 
 
 incrementBtn.addEventListener('click', function () {
-    store.dispatch({ type: INCREMENT });
+    myStore.dispatch({ type: INCREMENT });
 });
 
 decrementBtn.addEventListener('click', function () {
-    store.dispatch({ type: DECREMENT });
+    myStore.dispatch({ type: DECREMENT });
 });
+
