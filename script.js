@@ -41,7 +41,7 @@ function reducer(state = initialState, action) {
     //     return { ...state, count: state.count - action.payload }
     // }
 
-    // return state;
+    // return state
 
     switch (action.type) {
         case INCREMENT:
